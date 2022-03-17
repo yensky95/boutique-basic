@@ -1,0 +1,11 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: frontend-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: online-boutique-ip
+    networking.gke.io/managed-certificates: online-boutique-certificate
+spec:
+  backend:
+    serviceName: frontend-nodeport
+    servicePort: 80
