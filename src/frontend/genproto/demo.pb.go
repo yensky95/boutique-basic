@@ -289,6 +289,91 @@ func (m *Empty) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
+type ListRecommendationsRequest struct {
+	UserId               string   `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ProductIds           []string `protobuf:"bytes,2,rep,name=product_ids,json=productIds,proto3" json:"product_ids,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ListRecommendationsRequest) Reset()         { *m = ListRecommendationsRequest{} }
+func (m *ListRecommendationsRequest) String() string { return proto.CompactTextString(m) }
+func (*ListRecommendationsRequest) ProtoMessage()    {}
+func (*ListRecommendationsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ca53982754088a9d, []int{6}
+}
+
+func (m *ListRecommendationsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListRecommendationsRequest.Unmarshal(m, b)
+}
+func (m *ListRecommendationsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListRecommendationsRequest.Marshal(b, m, deterministic)
+}
+func (m *ListRecommendationsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListRecommendationsRequest.Merge(m, src)
+}
+func (m *ListRecommendationsRequest) XXX_Size() int {
+	return xxx_messageInfo_ListRecommendationsRequest.Size(m)
+}
+func (m *ListRecommendationsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListRecommendationsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListRecommendationsRequest proto.InternalMessageInfo
+
+func (m *ListRecommendationsRequest) GetUserId() string {
+	if m != nil {
+		return m.UserId
+	}
+	return ""
+}
+
+func (m *ListRecommendationsRequest) GetProductIds() []string {
+	if m != nil {
+		return m.ProductIds
+	}
+	return nil
+}
+
+type ListRecommendationsResponse struct {
+	ProductIds           []string `protobuf:"bytes,1,rep,name=product_ids,json=productIds,proto3" json:"product_ids,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ListRecommendationsResponse) Reset()         { *m = ListRecommendationsResponse{} }
+func (m *ListRecommendationsResponse) String() string { return proto.CompactTextString(m) }
+func (*ListRecommendationsResponse) ProtoMessage()    {}
+func (*ListRecommendationsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ca53982754088a9d, []int{7}
+}
+
+func (m *ListRecommendationsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListRecommendationsResponse.Unmarshal(m, b)
+}
+func (m *ListRecommendationsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListRecommendationsResponse.Marshal(b, m, deterministic)
+}
+func (m *ListRecommendationsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListRecommendationsResponse.Merge(m, src)
+}
+func (m *ListRecommendationsResponse) XXX_Size() int {
+	return xxx_messageInfo_ListRecommendationsResponse.Size(m)
+}
+func (m *ListRecommendationsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListRecommendationsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListRecommendationsResponse proto.InternalMessageInfo
+
+func (m *ListRecommendationsResponse) GetProductIds() []string {
+	if m != nil {
+		return m.ProductIds
+	}
+	return nil
+}
 
 type Product struct {
 	Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -1347,6 +1432,133 @@ func (m *PlaceOrderResponse) GetOrder() *OrderResult {
 	return nil
 }
 
+type AdRequest struct {
+	// List of important key words from the current page describing the context.
+	ContextKeys          []string `protobuf:"bytes,1,rep,name=context_keys,json=contextKeys,proto3" json:"context_keys,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AdRequest) Reset()         { *m = AdRequest{} }
+func (m *AdRequest) String() string { return proto.CompactTextString(m) }
+func (*AdRequest) ProtoMessage()    {}
+func (*AdRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ca53982754088a9d, []int{29}
+}
+
+func (m *AdRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AdRequest.Unmarshal(m, b)
+}
+func (m *AdRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AdRequest.Marshal(b, m, deterministic)
+}
+func (m *AdRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AdRequest.Merge(m, src)
+}
+func (m *AdRequest) XXX_Size() int {
+	return xxx_messageInfo_AdRequest.Size(m)
+}
+func (m *AdRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AdRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AdRequest proto.InternalMessageInfo
+
+func (m *AdRequest) GetContextKeys() []string {
+	if m != nil {
+		return m.ContextKeys
+	}
+	return nil
+}
+
+type AdResponse struct {
+	Ads                  []*Ad    `protobuf:"bytes,1,rep,name=ads,proto3" json:"ads,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AdResponse) Reset()         { *m = AdResponse{} }
+func (m *AdResponse) String() string { return proto.CompactTextString(m) }
+func (*AdResponse) ProtoMessage()    {}
+func (*AdResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ca53982754088a9d, []int{30}
+}
+
+func (m *AdResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AdResponse.Unmarshal(m, b)
+}
+func (m *AdResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AdResponse.Marshal(b, m, deterministic)
+}
+func (m *AdResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AdResponse.Merge(m, src)
+}
+func (m *AdResponse) XXX_Size() int {
+	return xxx_messageInfo_AdResponse.Size(m)
+}
+func (m *AdResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AdResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AdResponse proto.InternalMessageInfo
+
+func (m *AdResponse) GetAds() []*Ad {
+	if m != nil {
+		return m.Ads
+	}
+	return nil
+}
+
+type Ad struct {
+	// url to redirect to when an ad is clicked.
+	RedirectUrl string `protobuf:"bytes,1,opt,name=redirect_url,json=redirectUrl,proto3" json:"redirect_url,omitempty"`
+	// short advertisement text to display.
+	Text                 string   `protobuf:"bytes,2,opt,name=text,proto3" json:"text,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Ad) Reset()         { *m = Ad{} }
+func (m *Ad) String() string { return proto.CompactTextString(m) }
+func (*Ad) ProtoMessage()    {}
+func (*Ad) Descriptor() ([]byte, []int) {
+	return fileDescriptor_ca53982754088a9d, []int{31}
+}
+
+func (m *Ad) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Ad.Unmarshal(m, b)
+}
+func (m *Ad) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Ad.Marshal(b, m, deterministic)
+}
+func (m *Ad) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Ad.Merge(m, src)
+}
+func (m *Ad) XXX_Size() int {
+	return xxx_messageInfo_Ad.Size(m)
+}
+func (m *Ad) XXX_DiscardUnknown() {
+	xxx_messageInfo_Ad.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Ad proto.InternalMessageInfo
+
+func (m *Ad) GetRedirectUrl() string {
+	if m != nil {
+		return m.RedirectUrl
+	}
+	return ""
+}
+
+func (m *Ad) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
 
 func init() {
 	proto.RegisterType((*CartItem)(nil), "hipstershop.CartItem")
@@ -1355,6 +1567,8 @@ func init() {
 	proto.RegisterType((*GetCartRequest)(nil), "hipstershop.GetCartRequest")
 	proto.RegisterType((*Cart)(nil), "hipstershop.Cart")
 	proto.RegisterType((*Empty)(nil), "hipstershop.Empty")
+	proto.RegisterType((*ListRecommendationsRequest)(nil), "hipstershop.ListRecommendationsRequest")
+	proto.RegisterType((*ListRecommendationsResponse)(nil), "hipstershop.ListRecommendationsResponse")
 	proto.RegisterType((*Product)(nil), "hipstershop.Product")
 	proto.RegisterType((*ListProductsResponse)(nil), "hipstershop.ListProductsResponse")
 	proto.RegisterType((*GetProductRequest)(nil), "hipstershop.GetProductRequest")
@@ -1376,6 +1590,9 @@ func init() {
 	proto.RegisterType((*SendOrderConfirmationRequest)(nil), "hipstershop.SendOrderConfirmationRequest")
 	proto.RegisterType((*PlaceOrderRequest)(nil), "hipstershop.PlaceOrderRequest")
 	proto.RegisterType((*PlaceOrderResponse)(nil), "hipstershop.PlaceOrderResponse")
+	proto.RegisterType((*AdRequest)(nil), "hipstershop.AdRequest")
+	proto.RegisterType((*AdResponse)(nil), "hipstershop.AdResponse")
+	proto.RegisterType((*Ad)(nil), "hipstershop.Ad")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -1510,6 +1727,70 @@ var _CartService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EmptyCart",
 			Handler:    _CartService_EmptyCart_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "demo.proto",
+}
+
+// RecommendationServiceClient is the client API for RecommendationService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type RecommendationServiceClient interface {
+	ListRecommendations(ctx context.Context, in *ListRecommendationsRequest, opts ...grpc.CallOption) (*ListRecommendationsResponse, error)
+}
+
+type recommendationServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewRecommendationServiceClient(cc *grpc.ClientConn) RecommendationServiceClient {
+	return &recommendationServiceClient{cc}
+}
+
+func (c *recommendationServiceClient) ListRecommendations(ctx context.Context, in *ListRecommendationsRequest, opts ...grpc.CallOption) (*ListRecommendationsResponse, error) {
+	out := new(ListRecommendationsResponse)
+	err := c.cc.Invoke(ctx, "/hipstershop.RecommendationService/ListRecommendations", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// RecommendationServiceServer is the server API for RecommendationService service.
+type RecommendationServiceServer interface {
+	ListRecommendations(context.Context, *ListRecommendationsRequest) (*ListRecommendationsResponse, error)
+}
+
+func RegisterRecommendationServiceServer(s *grpc.Server, srv RecommendationServiceServer) {
+	s.RegisterService(&_RecommendationService_serviceDesc, srv)
+}
+
+func _RecommendationService_ListRecommendations_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRecommendationsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RecommendationServiceServer).ListRecommendations(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/hipstershop.RecommendationService/ListRecommendations",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RecommendationServiceServer).ListRecommendations(ctx, req.(*ListRecommendationsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _RecommendationService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "hipstershop.RecommendationService",
+	HandlerType: (*RecommendationServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "ListRecommendations",
+			Handler:    _RecommendationService_ListRecommendations_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -2032,6 +2313,69 @@ var _CheckoutService_serviceDesc = grpc.ServiceDesc{
 	Metadata: "demo.proto",
 }
 
+// AdServiceClient is the client API for AdService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type AdServiceClient interface {
+	GetAds(ctx context.Context, in *AdRequest, opts ...grpc.CallOption) (*AdResponse, error)
+}
+
+type adServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewAdServiceClient(cc *grpc.ClientConn) AdServiceClient {
+	return &adServiceClient{cc}
+}
+
+func (c *adServiceClient) GetAds(ctx context.Context, in *AdRequest, opts ...grpc.CallOption) (*AdResponse, error) {
+	out := new(AdResponse)
+	err := c.cc.Invoke(ctx, "/hipstershop.AdService/GetAds", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// AdServiceServer is the server API for AdService service.
+type AdServiceServer interface {
+	GetAds(context.Context, *AdRequest) (*AdResponse, error)
+}
+
+func RegisterAdServiceServer(s *grpc.Server, srv AdServiceServer) {
+	s.RegisterService(&_AdService_serviceDesc, srv)
+}
+
+func _AdService_GetAds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdServiceServer).GetAds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/hipstershop.AdService/GetAds",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdServiceServer).GetAds(ctx, req.(*AdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _AdService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "hipstershop.AdService",
+	HandlerType: (*AdServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetAds",
+			Handler:    _AdService_GetAds_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "demo.proto",
+}
 
 func init() { proto.RegisterFile("demo.proto", fileDescriptor_ca53982754088a9d) }
 
