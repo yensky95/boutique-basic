@@ -118,7 +118,7 @@ func (fe *frontendServer) homeHandler(w http.ResponseWriter, r *http.Request) {
 		"is_cymbal_brand":   isCymbalBrand,
 		"deploymentDetails": getDeploymentDetails(r),
 	}); err != nil {
-		log.Error(err)
+		log.Error("pippo pluto %v", err)
 	}
 }
 
