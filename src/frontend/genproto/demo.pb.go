@@ -289,6 +289,7 @@ func (m *Empty) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
+
 type ListRecommendationsRequest struct {
 	UserId               string   `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	ProductIds           []string `protobuf:"bytes,2,rep,name=product_ids,json=productIds,proto3" json:"product_ids,omitempty"`
@@ -374,6 +375,7 @@ func (m *ListRecommendationsResponse) GetProductIds() []string {
 	}
 	return nil
 }
+
 
 type Product struct {
 	Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -1432,6 +1434,7 @@ func (m *PlaceOrderResponse) GetOrder() *OrderResult {
 	return nil
 }
 
+
 type AdRequest struct {
 	// List of important key words from the current page describing the context.
 	ContextKeys          []string `protobuf:"bytes,1,rep,name=context_keys,json=contextKeys,proto3" json:"context_keys,omitempty"`
@@ -1558,6 +1561,7 @@ func (m *Ad) GetText() string {
 		return m.Text
 	}
 	return ""
+
 }
 
 func init() {
@@ -1567,8 +1571,8 @@ func init() {
 	proto.RegisterType((*GetCartRequest)(nil), "hipstershop.GetCartRequest")
 	proto.RegisterType((*Cart)(nil), "hipstershop.Cart")
 	proto.RegisterType((*Empty)(nil), "hipstershop.Empty")
-	proto.RegisterType((*ListRecommendationsRequest)(nil), "hipstershop.ListRecommendationsRequest")
-	proto.RegisterType((*ListRecommendationsResponse)(nil), "hipstershop.ListRecommendationsResponse")
+	//proto.RegisterType((*ListRecommendationsRequest)(nil), "hipstershop.ListRecommendationsRequest")
+	//proto.RegisterType((*ListRecommendationsResponse)(nil), "hipstershop.ListRecommendationsResponse")
 	proto.RegisterType((*Product)(nil), "hipstershop.Product")
 	proto.RegisterType((*ListProductsResponse)(nil), "hipstershop.ListProductsResponse")
 	proto.RegisterType((*GetProductRequest)(nil), "hipstershop.GetProductRequest")
@@ -1736,6 +1740,7 @@ var _CartService_serviceDesc = grpc.ServiceDesc{
 // RecommendationServiceClient is the client API for RecommendationService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+
 type RecommendationServiceClient interface {
 	ListRecommendations(ctx context.Context, in *ListRecommendationsRequest, opts ...grpc.CallOption) (*ListRecommendationsResponse, error)
 }
@@ -1796,6 +1801,7 @@ var _RecommendationService_serviceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "demo.proto",
 }
+
 
 // ProductCatalogServiceClient is the client API for ProductCatalogService service.
 //
@@ -2316,6 +2322,7 @@ var _CheckoutService_serviceDesc = grpc.ServiceDesc{
 // AdServiceClient is the client API for AdService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+
 type AdServiceClient interface {
 	GetAds(ctx context.Context, in *AdRequest, opts ...grpc.CallOption) (*AdResponse, error)
 }
@@ -2376,6 +2383,7 @@ var _AdService_serviceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "demo.proto",
 }
+
 
 func init() { proto.RegisterFile("demo.proto", fileDescriptor_ca53982754088a9d) }
 

@@ -112,7 +112,7 @@ func (fe *frontendServer) homeHandler(w http.ResponseWriter, r *http.Request) {
 		"products":          ps,
 		"cart_size":         cartSize(cart),
 		"banner_color":      os.Getenv("BANNER_COLOR"), // illustrates canary deployments
-		"ad":                fe.chooseAd(r.Context(), []string{}, log),
+		//"ad":                fe.chooseAd(r.Context(), []string{}, log),
 		"platform_css":      plat.css,
 		"platform_name":     plat.provider,
 		"is_cymbal_brand":   isCymbalBrand,
@@ -177,11 +177,12 @@ func (fe *frontendServer) productHandler(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
+	
 	recommendations, err := fe.getRecommendations(r.Context(), sessionID(r), []string{id})
 	if err != nil {
 		renderHTTPError(log, r, w, errors.Wrap(err, "failed to get product recommendations"), http.StatusInternalServerError)
 		return
-	}
+	} 
 
 	product := struct {
 		Item  *pb.Product
@@ -191,12 +192,12 @@ func (fe *frontendServer) productHandler(w http.ResponseWriter, r *http.Request)
 	if err := templates.ExecuteTemplate(w, "product", map[string]interface{}{
 		"session_id":        sessionID(r),
 		"request_id":        r.Context().Value(ctxKeyRequestID{}),
-		"ad":                fe.chooseAd(r.Context(), p.Categories, log),
+		//"ad":                fe.chooseAd(r.Context(), p.Categories, log),
 		"user_currency":     currentCurrency(r),
 		"show_currency":     true,
 		"currencies":        currencies,
 		"product":           product,
-		"recommendations":   recommendations,
+		//"recommendations":   recommendations,
 		"cart_size":         cartSize(cart),
 		"platform_css":      plat.css,
 		"platform_name":     plat.provider,
@@ -257,11 +258,13 @@ func (fe *frontendServer) viewCartHandler(w http.ResponseWriter, r *http.Request
 		return
 	}
 
+	
 	recommendations, err := fe.getRecommendations(r.Context(), sessionID(r), cartIDs(cart))
 	if err != nil {
 		renderHTTPError(log, r, w, errors.Wrap(err, "failed to get product recommendations"), http.StatusInternalServerError)
 		return
 	}
+	
 
 	shippingCost, err := fe.getShippingQuote(r.Context(), cart, currentCurrency(r))
 	if err != nil {
@@ -303,7 +306,7 @@ func (fe *frontendServer) viewCartHandler(w http.ResponseWriter, r *http.Request
 		"request_id":        r.Context().Value(ctxKeyRequestID{}),
 		"user_currency":     currentCurrency(r),
 		"currencies":        currencies,
-		"recommendations":   recommendations,
+		//"recommendations":   recommendations,
 		"cart_size":         cartSize(cart),
 		"shipping_cost":     shippingCost,
 		"show_currency":     true,
@@ -382,7 +385,7 @@ func (fe *frontendServer) placeOrderHandler(w http.ResponseWriter, r *http.Reque
 		"currencies":        currencies,
 		"order":             order.GetOrder(),
 		"total_paid":        &totalPaid,
-		"recommendations":   recommendations,
+		//"recommendations":   recommendations,
 		"platform_css":      plat.css,
 		"platform_name":     plat.provider,
 		"is_cymbal_brand":   isCymbalBrand,
@@ -427,6 +430,7 @@ func (fe *frontendServer) setCurrencyHandler(w http.ResponseWriter, r *http.Requ
 
 // chooseAd queries for advertisements available and randomly chooses one, if
 // available. It ignores the error retrieving the ad since it is not critical.
+
 func (fe *frontendServer) chooseAd(ctx context.Context, ctxKeys []string, log logrus.FieldLogger) *pb.Ad {
 	ads, err := fe.getAd(ctx, ctxKeys)
 	if err != nil {
@@ -435,6 +439,7 @@ func (fe *frontendServer) chooseAd(ctx context.Context, ctxKeys []string, log lo
 	}
 	return ads[rand.Intn(len(ads))]
 }
+
 
 func renderHTTPError(log logrus.FieldLogger, r *http.Request, w http.ResponseWriter, err error, code int) {
 	log.WithField("error", err).Error("request error")

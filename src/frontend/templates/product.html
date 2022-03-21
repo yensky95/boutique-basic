@@ -54,14 +54,6 @@
       </div>
     </div>
   </div>
-  <div>
-    {{ if $.recommendations}}
-      {{ template "recommendations" $.recommendations }}
-    {{ end }}
-  </div>
-  <div class="ad">
-   {{ with $.ad }}{{ template "text_ad" . }}{{ end }}
-  </div>
 </main>
 {{ template "footer" . }}
 {{ end }}
