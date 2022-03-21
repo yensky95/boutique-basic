@@ -31,8 +31,8 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 
-	pb "github.com/GoogleCloudPlatform/microservices-demo/src/frontend/genproto"
-	"github.com/GoogleCloudPlatform/microservices-demo/src/frontend/money"
+	pb "github.com/yensky95/boutique-basic/src/frontend/genproto"
+	"github.com/yensky95/boutique-basic/src/frontend/money"
 )
 
 type platformDetails struct {
@@ -427,7 +427,6 @@ func (fe *frontendServer) setCurrencyHandler(w http.ResponseWriter, r *http.Requ
 
 // chooseAd queries for advertisements available and randomly chooses one, if
 // available. It ignores the error retrieving the ad since it is not critical.
-/*
 func (fe *frontendServer) chooseAd(ctx context.Context, ctxKeys []string, log logrus.FieldLogger) *pb.Ad {
 	ads, err := fe.getAd(ctx, ctxKeys)
 	if err != nil {
@@ -435,7 +434,7 @@ func (fe *frontendServer) chooseAd(ctx context.Context, ctxKeys []string, log lo
 		return nil
 	}
 	return ads[rand.Intn(len(ads))]
-}*/
+}
 
 func renderHTTPError(log logrus.FieldLogger, r *http.Request, w http.ResponseWriter, err error, code int) {
 	log.WithField("error", err).Error("request error")
