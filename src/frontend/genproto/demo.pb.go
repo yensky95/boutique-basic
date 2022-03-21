@@ -1590,9 +1590,9 @@ func init() {
 	proto.RegisterType((*SendOrderConfirmationRequest)(nil), "hipstershop.SendOrderConfirmationRequest")
 	proto.RegisterType((*PlaceOrderRequest)(nil), "hipstershop.PlaceOrderRequest")
 	proto.RegisterType((*PlaceOrderResponse)(nil), "hipstershop.PlaceOrderResponse")
-	proto.RegisterType((*AdRequest)(nil), "hipstershop.AdRequest")
-	proto.RegisterType((*AdResponse)(nil), "hipstershop.AdResponse")
-	proto.RegisterType((*Ad)(nil), "hipstershop.Ad")
+	//proto.RegisterType((*AdRequest)(nil), "hipstershop.AdRequest")
+	//proto.RegisterType((*AdResponse)(nil), "hipstershop.AdResponse")
+	//proto.RegisterType((*Ad)(nil), "hipstershop.Ad")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
