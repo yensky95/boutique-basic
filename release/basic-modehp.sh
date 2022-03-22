@@ -15,4 +15,4 @@ then
     kubectl delete svc recommendationservice
 fi
 
-kubectl apply -f kubernetes-manifests-basic.yaml
+kubectl apply -f kubernetes-manifests-basichp.yaml
