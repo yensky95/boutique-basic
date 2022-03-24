@@ -39,7 +39,9 @@ do
         execmode=3
         echo "Waiting for pods to be re-deployed ..."
         sleep 15
-    elif [[ $toint -lt 100 && $execmode -eq 3 ]]
+    fi
+    
+    if [[ $toint -lt 100 && $execmode -eq 3 ]]
     then   
         echo "Going into basic high performance mode"
         bash basiclp-mode.sh
