@@ -7,6 +7,7 @@ do
     declare -i execmode=0
 
     content=$( curl -g 'http://localhost:9090/api/v1/query?query=rate(istio_request_duration_milliseconds_sum{app="frontend",source_app="loadgenerator",response_code="200"}[2m])/rate(istio_request_duration_milliseconds_count{app="frontend",source_app="loadgenerator",response_code="200"}[2m])' )
+    sleep 3
     value=$( jq '.data.result[].value[1]' <<< "${content}" )
     valuea=$(echo $value | cut -c 2-)
     valuefd=$(echo $valuef | awk '{printf "%d", $1}')
@@ -14,12 +15,12 @@ do
 
     echo $toint
 
-    if [ $toint -gt 100 && execmode==0 ];
+    if [ $toint -gt 100 && execmode == 0 ];
     then
         echo "Going into normal low power mode"
         bash normal-mode-lp.sh
         execmode=1
-    elif [ $toint -gt 100 && execmode==1 ];
+    elif [ $toint -gt 100 && execmode == 1 ];
     then    
         echo "Going into basic high performance mode"
         bash basichp-mode.sh
