@@ -7,7 +7,7 @@ do
     declare -i execmode=0
 
     content=$( curl -g 'http://localhost:9090/api/v1/query?query=rate(istio_request_duration_milliseconds_sum{app="frontend",source_app="loadgenerator",response_code="200"}[2m])/rate(istio_request_duration_milliseconds_count{app="frontend",source_app="loadgenerator",response_code="200"}[2m])' )
-    sleep 3
+    sleep 2
     value=$( jq '.data.result[].value[1]' <<< "${content}" )
     valuea=$(echo $value | cut -c 2-)
     valuefd=$(echo $valuea | awk '{printf "%d", $1}')
@@ -20,16 +20,22 @@ do
         echo "Going into normal low power mode"
         bash normal-mode-lp.sh
         execmode=1
+        echo "Waiting for pods to be re-deployed ..."
+        sleep 15
     elif [[ $toint -gt 100 && execmode == 1 ]];
     then    
         echo "Going into basic high performance mode"
         bash basichp-mode.sh
         execmode=2
-    elif [ $toint -gt 100 ];
+        echo "Waiting for pods to be re-deployed ..."
+        sleep 15
+    elif [[ $toint -gt 100 && !(execmode == 3) ]];
     then   
         echo "Going into basic low power mode"
         bash basiclp-mode.sh
         execmode=3
+        echo "Waiting for pods to be re-deployed ..."
+        sleep 15
     fi
 
     echo "Next data fetched in 30 seconds ... execute mode $execmode. Current latency $toint"
