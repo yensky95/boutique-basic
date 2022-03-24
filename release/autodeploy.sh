@@ -15,12 +15,12 @@ do
 
     echo $toint
 
-    if [ $toint -gt 100 && execmode == 0 ];
+    if [[ $toint -gt 100 && execmode == 0 ]];
     then
         echo "Going into normal low power mode"
         bash normal-mode-lp.sh
         execmode=1
-    elif [ $toint -gt 100 && execmode == 1 ];
+    elif [[ $toint -gt 100 && execmode == 1 ]];
     then    
         echo "Going into basic high performance mode"
         bash basichp-mode.sh
