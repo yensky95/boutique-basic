@@ -18,8 +18,6 @@ do
     valuefd=$(echo $valuea | awk '{printf "%d", $1}')
     toint=$(($valuefd+0))
 
-    echo $toint
-
     if [[ $toint -gt 100 && execmode == 0 ]];
     then
         echo "Going into normal low power mode"
@@ -27,18 +25,49 @@ do
         execmode=1
         echo "Waiting for pods to be re-deployed ..."
         sleep 15
-    elif [[ $toint -gt 100 && execmode == 1 ]];
+    fi
+
+    if [[ $toint -gt 100 && execmode == 1 ]];
     then    
         echo "Going into basic high performance mode"
         bash basichp-mode.sh
         execmode=2
         echo "Waiting for pods to be re-deployed ..."
         sleep 15
-    elif [[ $toint -gt 100 && !(execmode == 3) ]];
+    fi
+    
+    if [[ $toint -gt 100 && !(execmode == 3) ]];
     then   
         echo "Going into basic low power mode"
         bash basiclp-mode.sh
         execmode=3
+        echo "Waiting for pods to be re-deployed ..."
+        sleep 15
+    fi
+
+    if [[ $toint -lt 100 && execmode == 3 ]];
+    then   
+        echo "Going into basic high performance mode"
+        bash basiclp-mode.sh
+        execmode=2
+        echo "Waiting for pods to be re-deployed ..."
+        sleep 15
+    fi
+
+    if [[ $toint -lt 100 && execmode == 2 ]];
+    then   
+        echo "Going into normal low power mode"
+        bash basiclp-mode.sh
+        execmode=1
+        echo "Waiting for pods to be re-deployed ..."
+        sleep 15
+    fi
+
+    if [[ $toint -lt 100 && execmode == 1 ]];
+    then   
+        echo "Going into normal high performance mode"
+        bash basiclp-mode.sh
+        execmode=0
         echo "Waiting for pods to be re-deployed ..."
         sleep 15
     fi
