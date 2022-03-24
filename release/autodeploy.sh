@@ -48,21 +48,21 @@ do
     if [[ $toint -lt 100 && $execmode -eq 3 ]]
     then   
         echo "Going into basic high performance mode"
-        bash basiclp-mode.sh
+        bash basichp-mode.sh
         execmode=2
         echo "Waiting for pods to be re-deployed ..."
         sleep 15
     elif [[ $toint -lt 100 && $execmode -eq 2 ]]
     then   
         echo "Going into normal low power mode"
-        bash basiclp-mode.sh
+        bash normal-mode-lp.sh
         execmode=1
         echo "Waiting for pods to be re-deployed ..."
         sleep 15
     elif [[ $toint -lt 100 && $execmode -eq 1 ]]
     then   
         echo "Going into normal high performance mode"
-        bash basiclp-mode.sh
+        bash normal-mode-hp.sh
         execmode=0
         echo "Waiting for pods to be re-deployed ..."
         sleep 15
