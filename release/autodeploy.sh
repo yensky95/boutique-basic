@@ -1,8 +1,9 @@
 #!/bin/bash
 
+echo "Deploying normal mode ..."
 bash normal-mode-hp.sh
 sleep 15
-echo "Deploying normal mode ..."
+
 
 while true 
 do
