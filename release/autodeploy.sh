@@ -10,7 +10,7 @@ do
     sleep 3
     value=$( jq '.data.result[].value[1]' <<< "${content}" )
     valuea=$(echo $value | cut -c 2-)
-    valuefd=$(echo $valuef | awk '{printf "%d", $1}')
+    valuefd=$(echo $valuea | awk '{printf "%d", $1}')
     toint=$(($valuefd+0))
 
     echo $toint
