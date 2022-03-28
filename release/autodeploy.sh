@@ -4,6 +4,7 @@
 
 echo "Deploying normal mode ..."
 bash normal-mode-hp.sh
+echo "------------------"
 sleep 15
 
 
@@ -86,6 +87,7 @@ do
 
     i=i+1
     echo "Next data fetched in 30 seconds ... execute mode $execmode."
+    echo "------------------"
     sleep 30
 
 done
