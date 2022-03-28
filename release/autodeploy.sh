@@ -84,7 +84,7 @@ do
         sleep 15
     fi
 
-    i=$($i+1)
+    i=i+1
     echo "Next data fetched in 30 seconds ... execute mode $execmode."
     sleep 30
 
