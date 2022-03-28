@@ -39,10 +39,6 @@ spec:
         env:
         - name: PORT
           value: "8080"
-        - name: DISABLE_TRACING
-          value: "0"
-        - name: DISABLE_PROFILER
-          value: "0"
         readinessProbe:
           periodSeconds: 5
           exec:
@@ -112,12 +108,6 @@ spec:
             value: "currencyservice:7000"
           - name: CART_SERVICE_ADDR
             value: "cartservice:7070"
-          - name: DISABLE_STATS
-            value: "1"
-          - name: DISABLE_TRACING
-            value: "1"
-          - name: DISABLE_PROFILER
-            value: "1"
           # - name: JAEGER_SERVICE_ADDR
           #   value: "jaeger-collector:14268"
           resources:
@@ -174,12 +164,6 @@ spec:
           value: "8080"
         - name: PRODUCT_CATALOG_SERVICE_ADDR
           value: "productcatalogservice:3550"
-        - name: DISABLE_TRACING
-          value: "0"
-        - name: DISABLE_PROFILER
-          value: "0"
-        - name: DISABLE_DEBUGGER
-          value: "0"
         resources:
           requests:
             cpu: 100m
@@ -259,10 +243,6 @@ spec:
           # # When not set, defaults to "local" unless running in GKE, otherwies auto-sets to gcp 
           # - name: ENV_PLATFORM 
           #   value: "aws"
-          - name: DISABLE_TRACING
-            value: "0"
-          - name: DISABLE_PROFILER
-            value: "0"
           # - name: JAEGER_SERVICE_ADDR
           #   value: "jaeger-collector:14268"
           # - name: CYMBAL_BRANDING
@@ -324,12 +304,6 @@ spec:
         env:
         - name: PORT
           value: "50051"
-        - name: DISABLE_TRACING
-          value: "0"
-        - name: DISABLE_PROFILER
-          value: "0"
-        - name: DISABLE_DEBUGGER
-          value: "0"
         readinessProbe:
           exec:
             command: ["/bin/grpc_health_probe", "-addr=:50051"]
@@ -380,12 +354,6 @@ spec:
         env:
         - name: PORT
           value: "3550"
-        - name: DISABLE_STATS
-          value: "0"
-        - name: DISABLE_TRACING
-          value: "0"
-        - name: DISABLE_PROFILER
-          value: "0"
         # - name: JAEGER_SERVICE_ADDR
         #   value: "jaeger-collector:14268"
         readinessProbe:
@@ -471,57 +439,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: loadgenerator
-spec:
-  selector:
-    matchLabels:
-      app: loadgenerator
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: loadgenerator
-      annotations:
-        sidecar.istio.io/rewriteAppHTTPProbers: "true"
-    spec:
-      serviceAccountName: default
-      terminationGracePeriodSeconds: 5
-      restartPolicy: Always
-      initContainers:
-      - command:
-        - /bin/sh
-        - -exc
-        - |
-          echo "Init container pinging frontend: ${FRONTEND_ADDR}..."
-          STATUSCODE=$(wget --server-response http://${FRONTEND_ADDR} 2>&1 | awk '/^  HTTP/{print $2}')
-          if test $STATUSCODE -ne 200; then
-              echo "Error: Could not reach frontend - Status code: ${STATUSCODE}"
-              exit 1
-          fi
-        name: frontend-check
-        image: busybox:latest
-        env:
-        - name: FRONTEND_ADDR
-          value: "frontend:80"
-      containers:
-      - name: main
-        image: gcr.io/google-samples/microservices-demo/loadgenerator:v0.3.5
-        env:
-        - name: FRONTEND_ADDR
-          value: "frontend:80"
-        - name: USERS
-          value: "10"
-        resources:
-          requests:
-            cpu: 300m
-            memory: 256Mi
-          limits:
-            cpu: 500m
-            memory: 512Mi
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
   name: currencyservice
 spec:
   selector:
@@ -543,12 +460,6 @@ spec:
         env:
         - name: PORT
           value: "7000"
-        - name: DISABLE_TRACING
-          value: "0"
-        - name: DISABLE_PROFILER
-          value: "0"
-        - name: DISABLE_DEBUGGER
-          value: "0"
         readinessProbe:
           exec:
             command: ["/bin/grpc_health_probe", "-addr=:7000"]
@@ -598,12 +509,6 @@ spec:
         env:
         - name: PORT
           value: "50051"
-        - name: DISABLE_STATS
-          value: "0"
-        - name: DISABLE_TRACING
-          value: "0"
-        - name: DISABLE_PROFILER
-          value: "0"
         # - name: JAEGER_SERVICE_ADDR
         #   value: "jaeger-collector:14268"
         readinessProbe:
@@ -710,10 +615,6 @@ spec:
         env:
         - name: PORT
           value: "9555"
-        - name: DISABLE_STATS
-          value: "0"
-        - name: DISABLE_TRACING
-          value: "0"
         # - name: JAEGER_SERVICE_ADDR
         #   value: "jaeger-collector:14268"
         resources:

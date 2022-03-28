@@ -9,17 +9,33 @@ sleep 15
 
 #execmode: 0 -> normal high performance, 1 -> normal low power , 2 -> basic high performance, 3 -> basic low power
 declare -i execmode=0
+declare -i i=0
 
 while true 
 do
 
+    echo "-----Cycle $i-----" >> data.txt
+    #Response Time calculation
     content=$( curl -g 'http://localhost:9090/api/v1/query?query=rate(istio_request_duration_milliseconds_sum{app="frontend",source_app="loadgenerator",response_code="200"}[1m])/rate(istio_request_duration_milliseconds_count{app="frontend",source_app="loadgenerator",response_code="200"}[1m])' )
-    sleep 2
     value=$( jq '.data.result[].value[1]' <<< "${content}" )
     valuea=$(echo $value | cut -c 2-)
     valuefd=$(echo $valuea | awk '{printf "%d", $1}')
     toint=$(($valuefd+0))
 
+    #Throughput calculation
+    content=$( curl -g 'http://localhost:9090/api/v1/query?query=sum(rate(istio_request_duration_milliseconds_count{app="frontend"}[1m]))' )
+    valuet=$( jq '.data.result[].value[1]' <<< "${content}" )
+    valueta=$(echo $valuet | cut -c 2-)
+    valuetfd=$(echo $valueta | awk '{printf "%d", $1}')
+    ttoint=$(($valuetfd+0))
+
+    #data copied in the txt file
+    kubectl top pods >> data.txt
+    echo "Throughput (kps - kilobit per sec): $ttoint" >> data.txt
+    echo "Latency value: $toint" >> data.txt
+    echo "------------------" >> data.txt
+    #log on cmd 
+    echo "Throughput (kps - kilobit per sec): $ttoint"
     echo "Latency value: $toint"
 
     if [[ $toint -gt 100 && $execmode -eq 0 ]]
@@ -68,6 +84,7 @@ do
         sleep 15
     fi
 
+    i=$($i+1)
     echo "Next data fetched in 30 seconds ... execute mode $execmode."
     sleep 30
 
