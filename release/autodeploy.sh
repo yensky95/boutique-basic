@@ -36,8 +36,8 @@ do
     echo "Latency value: $toint" >> data.txt
     echo "------------------" >> data.txt
     #log on cmd 
-    echo "Throughput (kps - kilobit per sec): $ttoint"
-    echo "Latency value: $toint"
+    echo "Throughput (kps - kilobit per sec): $ttoint kps"
+    echo "Latency value: $toint ms"
 
     if [[ $toint -gt 100 && $execmode -eq 0 ]]
     then
