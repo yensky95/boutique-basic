@@ -34,7 +34,6 @@ do
     kubectl top pods >> data.txt
     echo "Throughput (kps - kilobit per sec): $ttoint" >> data.txt
     echo "Latency value: $toint" >> data.txt
-    echo "------------------" >> data.txt
     #log on cmd 
     echo "Throughput (kps - kilobit per sec): $ttoint kps"
     echo "Latency value: $toint ms"
