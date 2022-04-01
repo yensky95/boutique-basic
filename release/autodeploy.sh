@@ -109,10 +109,11 @@ do
         sleep 15
     fi
 
-    if [[ $lock -eq 1 && $lockvar -lt 4 ]]
+    if [[ $lock -eq 1 && $lockvar -lt 4 ]];
     then
         lockvar=lockvar+1
     elif [ $lock -eq 1 ]
+    then
         lock=0
         lockvar=0
     fi
