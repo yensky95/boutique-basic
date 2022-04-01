@@ -64,7 +64,7 @@ do
         execmode=1
         lock=1
         echo "Waiting for pods to be re-deployed ..."
-        sleep 15
+        sleep 25
     elif [[ $toint -gt 100 && $execmode -eq 1 && $lock -eq 0 ]] || [[ $execmode -eq 1 && $totcpucomp -gt 70000 && $lock -eq 0 ]];
      then    
         echo "Going into basic high performance mode"
@@ -72,7 +72,7 @@ do
         execmode=2
         lock=1
         echo "Waiting for pods to be re-deployed ..."
-        sleep 15
+        sleep 25
     elif [[ $toint -gt 100 && !($execmode -eq 3) && $execmode -eq 2 && $lock -eq 0 ]] || [[ $execmode -eq 2 && $totcpucomp -gt 70000 && !($execmode -eq 3) && $lock -eq 0 ]];
     then   
         echo "Going into basic low power mode"
@@ -80,7 +80,7 @@ do
         execmode=3
         lock=1
         echo "Waiting for pods to be re-deployed ..."
-        sleep 15
+        sleep 25
     fi
     
     if [[ $toint -lt 50 && $execmode -eq 3 && $lock -eq 0 ]] || [[ $execmode -eq 3 && $totcpucomp -lt 48000 && $lock -eq 0 ]];
@@ -90,7 +90,7 @@ do
         execmode=2
         lock=1
         echo "Waiting for pods to be re-deployed ..."
-        sleep 15
+        sleep 25
     elif [[ $toint -lt 55 && $execmode -eq 2 && $lock -eq 0 ]] || [[ $execmode -eq 2 && $totcpucomp -lt 50000 && $lock -eq 0 ]];
     then   
         echo "Going into normal low power mode"
@@ -98,7 +98,7 @@ do
         execmode=1
         lock=1
         echo "Waiting for pods to be re-deployed ..."
-        sleep 15
+        sleep 25
     elif [[ $toint -lt 60 && $execmode -eq 1 && $lock -eq 0 ]] || [[ $execmode -eq 1 && $totcpucomp -lt 53000 && $lock -eq 0 ]];
     then   
         echo "Going into normal high performance mode"
@@ -106,7 +106,7 @@ do
         execmode=0
         lock=1
         echo "Waiting for pods to be re-deployed ..."
-        sleep 15
+        sleep 25
     fi
 
     if [[ $lock -eq 1 && $lockvar -lt 4 ]];
