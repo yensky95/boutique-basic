@@ -32,11 +32,12 @@ do
 
     #data copied in the txt file
     kubectl top pods >> data.txt
-    echo "Throughput (kps - kilobit per sec): $ttoint" >> data.txt
-    echo "Latency value: $toint" >> data.txt
+    echo "Throughput (rpm - requests per min): $ttoint rpm" >> data.txt
+    echo "Latency value: $toint ms" >> data.txt
     #log on cmd 
-    echo "Throughput (kps - kilobit per sec): $ttoint kps"
+    echo "Throughput (rpm - requests per min): $ttoint rpm"
     echo "Latency value: $toint ms"
+    echo ""
 
     if [[ $toint -gt 100 && $execmode -eq 0 ]]
     then
