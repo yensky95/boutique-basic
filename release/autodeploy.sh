@@ -161,11 +161,11 @@ do
             lock=1
             echo "Waiting for pods to be re-deployed ..."
             sleep 25
-        elif [ $lockmodecounter -gt 1 ]
+        elif [ $lockmodecounter -gt 0 ]
         then
             lockmodecounter=0
-            lockmode=10
             echo "Unlocking mode $lockmode"
+            lockmode=10
         else
             lockmodecounter=lockmodecounter+1
             echo "Updating lockmodecounter: $lockmodecounter"
@@ -180,11 +180,11 @@ do
             lock=1
             echo "Waiting for pods to be re-deployed ..."
             sleep 25
-        elif [ $lockmodecounter -gt 1 ]
+        elif [ $lockmodecounter -gt 0 ]
         then
             lockmodecounter=0
-            lockmode=10
             echo "Unlocking mode $lockmode"
+            lockmode=10
         else
             lockmodecounter=lockmodecounter+1
             echo "Updating lockmodecounter: $lockmodecounter"
@@ -199,11 +199,11 @@ do
             lock=1
             echo "Waiting for pods to be re-deployed ..."
             sleep 25
-        elif [ $lockmodecounter -gt 1 ]
+        elif [ $lockmodecounter -gt 0 ]
         then
             lockmodecounter=0
-            lockmode=10
             echo "Unlocking mode $lockmode"
+            lockmode=10
         else
             lockmodecounter=lockmodecounter+1
             echo "Updating lockmodecounter: $lockmodecounter"
