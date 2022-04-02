@@ -13,6 +13,8 @@ declare -i execmode=0
 declare -i i=0
 declare -i lock=0
 declare -i lockvar=0
+declare -i lockmode=10
+declare -i lockmodecounter=0
 
 #data formatting csv
 echo "ResponseTime Throughput PowerConsumption" >> data.txt 
@@ -59,54 +61,120 @@ do
 
     if [[ $toint -gt 100 && $execmode -eq 0 && $lock -eq 0 ]] || [[ $execmode -eq 0 && $totcpucomp -gt 70000 && $lock -eq 0 ]];
     then
-        echo "Going into normal low power mode"
-        bash normal-mode-lp.sh
-        execmode=1
-        lock=1
-        echo "Waiting for pods to be re-deployed ..."
-        sleep 25
+        if [ $toint -gt 150 ]
+        then
+            lockmode=0
+            echo "Going into normal low power mode"
+            bash normal-mode-lp.sh
+            execmode=1
+            lock=1
+            echo "Waiting for pods to be re-deployed ..."
+            sleep 25
+        else
+            echo "Going into normal low power mode"
+            bash normal-mode-lp.sh
+            execmode=1
+            lock=1
+            echo "Waiting for pods to be re-deployed ..."
+            sleep 25
+        fi
     elif [[ $toint -gt 100 && $execmode -eq 1 && $lock -eq 0 ]] || [[ $execmode -eq 1 && $totcpucomp -gt 70000 && $lock -eq 0 ]];
-     then    
-        echo "Going into basic high performance mode"
-        bash basichp-mode.sh
-        execmode=2
-        lock=1
-        echo "Waiting for pods to be re-deployed ..."
-        sleep 25
+     then
+        if [ $toint -gt 150 ]   
+        then
+            lockmode=1
+            echo "Going into basic high performance mode"
+            bash basichp-mode.sh
+            execmode=2
+            lock=1
+            echo "Waiting for pods to be re-deployed ..."
+            sleep 25
+        else
+            echo "Going into basic high performance mode"
+            bash basichp-mode.sh
+            execmode=2
+            lock=1
+            echo "Waiting for pods to be re-deployed ..."
+            sleep 25
+        fi
     elif [[ $toint -gt 100 && !($execmode -eq 3) && $execmode -eq 2 && $lock -eq 0 ]] || [[ $execmode -eq 2 && $totcpucomp -gt 70000 && !($execmode -eq 3) && $lock -eq 0 ]];
     then   
-        echo "Going into basic low power mode"
-        bash basiclp-mode.sh
-        execmode=3
-        lock=1
-        echo "Waiting for pods to be re-deployed ..."
-        sleep 25
+        if [ $toint -gt 150 ]
+        then
+            lockmode=2
+            echo "Going into basic low power mode"
+            bash basiclp-mode.sh
+            execmode=3
+            lock=1
+            echo "Waiting for pods to be re-deployed ..."
+            sleep 25
+        else
+            echo "Going into basic low power mode"
+            bash basiclp-mode.sh
+            execmode=3
+            lock=1
+            echo "Waiting for pods to be re-deployed ..."
+            sleep 25
+        fi
     fi
     
-    if [[ $toint -lt 50 && $execmode -eq 3 && $lock -eq 0 ]] || [[ $execmode -eq 3 && $totcpucomp -lt 48000 && $lock -eq 0 ]];
+    if [[ $toint -lt 40 && $execmode -eq 3 && $lock -eq 0 && $lockmode -ne 2 ]] || [[ $execmode -eq 3 && $totcpucomp -lt 30000 && $lock -eq 0 ]];
     then   
-        echo "Going into basic high performance mode"
-        bash basichp-mode.sh
-        execmode=2
-        lock=1
-        echo "Waiting for pods to be re-deployed ..."
-        sleep 25
-    elif [[ $toint -lt 55 && $execmode -eq 2 && $lock -eq 0 ]] || [[ $execmode -eq 2 && $totcpucomp -lt 50000 && $lock -eq 0 ]];
+        if [ $lockmode -ne 2 ]
+        then
+            echo "Going into basic high performance mode"
+            bash basichp-mode.sh
+            execmode=2
+            lock=1
+            echo "Waiting for pods to be re-deployed ..."
+            sleep 25
+        elif [ $lockmodecounter -gt 2 ]
+        then
+            lockmodecounter=0
+            lockmode=10
+            echo "Unlocking mode $lockmode"
+        else
+            lockmodecounter=lockmodecounter+1
+            echo "Updating lockmodecounter: $lockmodecounter"
+        fi
+    elif [[ $toint -lt 50 && $execmode -eq 2 && $lock -eq 0  ]] || [[ $execmode -eq 2 && $totcpucomp -lt 33000 && $lock -eq 0 ]];
     then   
-        echo "Going into normal low power mode"
-        bash normal-mode-lp.sh
-        execmode=1
-        lock=1
-        echo "Waiting for pods to be re-deployed ..."
-        sleep 25
-    elif [[ $toint -lt 60 && $execmode -eq 1 && $lock -eq 0 ]] || [[ $execmode -eq 1 && $totcpucomp -lt 53000 && $lock -eq 0 ]];
+        if [ $lockmode -ne 1 ]
+        then
+            echo "Going into normal low power mode"
+            bash normal-mode-lp.sh
+            execmode=1
+            lock=1
+            echo "Waiting for pods to be re-deployed ..."
+            sleep 25
+        elif [ $lockmodecounter -gt 2 ]
+        then
+            lockmodecounter=0
+            lockmode=10
+            echo "Unlocking mode $lockmode"
+        else
+            lockmodecounter=lockmodecounter+1
+            echo "Updating lockmodecounter: $lockmodecounter"
+        fi
+    elif [[ $toint -lt 60 && $execmode -eq 1 && $lock -eq 0 && $lockmode -ne 0 ]] || [[ $execmode -eq 1 && $totcpucomp -lt 49000 && $lock -eq 0 ]];
     then   
-        echo "Going into normal high performance mode"
-        bash normal-mode-hp.sh
-        execmode=0
-        lock=1
-        echo "Waiting for pods to be re-deployed ..."
-        sleep 25
+        if [ $lockmode -ne 0 ]
+        then
+            echo "Going into normal high performance mode"
+            bash normal-mode-hp.sh
+            execmode=0
+            lock=1
+            echo "Waiting for pods to be re-deployed ..."
+            sleep 25
+        elif [ $lockmodecounter -gt 2 ]
+        then
+            lockmodecounter=0
+            lockmode=10
+            echo "Unlocking mode $lockmode"
+        else
+            lockmodecounter=lockmodecounter+1
+            echo "Updating lockmodecounter: $lockmodecounter"
+        fi
     fi
 
     #print of execution mode after deploying
