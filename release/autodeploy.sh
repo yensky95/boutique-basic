@@ -71,7 +71,7 @@ do
             lock=1
             echo "Waiting for pods to be re-deployed ..."
             sleep 25
-        elif [ $lockmode-ne 10 ]
+        elif [ $lockmode -ne 10 ]
         then
             lockmode=10
             lockmodecounter=0
@@ -101,7 +101,7 @@ do
             lock=1
             echo "Waiting for pods to be re-deployed ..."
             sleep 25
-        elif [ $lockmode-ne 10 ]
+        elif [ $lockmode -ne 10 ]
         then
             lockmode=10
             lockmodecounter=0
@@ -131,7 +131,7 @@ do
             lock=1
             echo "Waiting for pods to be re-deployed ..."
             sleep 25
-        elif [ $lockmode-ne 10 ]
+        elif [ $lockmode -ne 10 ]
         then
             lockmode=10
             lockmodecounter=0
@@ -161,7 +161,7 @@ do
             lock=1
             echo "Waiting for pods to be re-deployed ..."
             sleep 25
-        elif [ $lockmodecounter -gt 2 ]
+        elif [ $lockmodecounter -gt 1 ]
         then
             lockmodecounter=0
             lockmode=10
@@ -180,7 +180,7 @@ do
             lock=1
             echo "Waiting for pods to be re-deployed ..."
             sleep 25
-        elif [ $lockmodecounter -gt 2 ]
+        elif [ $lockmodecounter -gt 1 ]
         then
             lockmodecounter=0
             lockmode=10
@@ -199,7 +199,7 @@ do
             lock=1
             echo "Waiting for pods to be re-deployed ..."
             sleep 25
-        elif [ $lockmodecounter -gt 2 ]
+        elif [ $lockmodecounter -gt 1 ]
         then
             lockmodecounter=0
             lockmode=10
