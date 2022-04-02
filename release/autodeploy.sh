@@ -46,7 +46,7 @@ do
     echo "-------" >> datatop.txt
     echo "Throughput: $ttoint rpm" >> datatop.txt
     echo "Response Time: $toint ms" >> datatop.txt
-    echo "ExecutionMode: $execmode" >> datatop.txt
+    
     echo "CPU power consumption: $totcpup" >> datatop.txt
     #formatted txt for csv
     echo "$toint $ttoint $totcpupscaled" >> data.txt
@@ -54,7 +54,7 @@ do
     #log on cmd 
     echo "Throughput: $ttoint rpm"
     echo "Latency value: $toint ms"
-    echo "CPU power consumption: $totcpup"
+    echo "CPU power consumption: $totcpup W"
     echo "Lock var: $lockvar, Lock: $lock"
 
     if [[ $toint -gt 100 && $execmode -eq 0 && $lock -eq 0 ]] || [[ $execmode -eq 0 && $totcpucomp -gt 70000 && $lock -eq 0 ]];
@@ -108,6 +108,9 @@ do
         echo "Waiting for pods to be re-deployed ..."
         sleep 25
     fi
+
+    #print of execution mode after deploying
+    echo "ExecutionMode: $execmode" >> datatop.txt
 
     if [[ $lock -eq 1 && $lockvar -lt 4 ]];
     then
