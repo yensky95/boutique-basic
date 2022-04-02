@@ -11,7 +11,7 @@ sleep 15
 #execmode: 0 -> normal high performance, 1 -> normal low power , 2 -> basic high performance, 3 -> basic low power
 declare -i execmode=0
 declare -i i=0
-declare -i lock=0
+declare -i lock=1
 declare -i lockvar=0
 declare -i lockmode=10
 declare -i lockmodecounter=0
