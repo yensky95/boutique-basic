@@ -57,12 +57,13 @@ do
     echo "Throughput: $ttoint rpm"
     echo "Latency value: $toint ms"
     echo "CPU power consumption: $totcpup W"
-    echo "Lock var: $lockvar, Lock: $lock"
+    echo "Lock var: $lockvar, Lock: $lock, Lockmode: $lockmode, Lock mode counter: $lockmodecounter"
 
     if [[ $toint -gt 100 && $execmode -eq 0 && $lock -eq 0 ]] || [[ $execmode -eq 0 && $totcpucomp -gt 70000 && $lock -eq 0 ]];
     then
         if [ $toint -gt 150 ]
         then
+            lockmodecounter=0
             lockmode=0
             echo "Going into normal low power mode"
             bash normal-mode-lp.sh
@@ -82,6 +83,7 @@ do
      then
         if [ $toint -gt 150 ]   
         then
+            lockmodecounter=0
             lockmode=1
             echo "Going into basic high performance mode"
             bash basichp-mode.sh
@@ -101,6 +103,7 @@ do
     then   
         if [ $toint -gt 150 ]
         then
+            lockmodecounter=0
             lockmode=2
             echo "Going into basic low power mode"
             bash basiclp-mode.sh
