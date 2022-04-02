@@ -61,10 +61,20 @@ do
 
     if [[ $toint -gt 100 && $execmode -eq 0 && $lock -eq 0 ]] || [[ $execmode -eq 0 && $totcpucomp -gt 70000 && $lock -eq 0 ]];
     then
-        if [ $toint -gt 150 ]
+        if [ $toint -gt 140 ]
         then
             lockmodecounter=0
             lockmode=0
+            echo "Going into normal low power mode"
+            bash normal-mode-lp.sh
+            execmode=1
+            lock=1
+            echo "Waiting for pods to be re-deployed ..."
+            sleep 25
+        elif [ $lockmode-ne 10 ]
+        then
+            lockmode=10
+            lockmodecounter=0
             echo "Going into normal low power mode"
             bash normal-mode-lp.sh
             execmode=1
@@ -81,10 +91,20 @@ do
         fi
     elif [[ $toint -gt 100 && $execmode -eq 1 && $lock -eq 0 ]] || [[ $execmode -eq 1 && $totcpucomp -gt 70000 && $lock -eq 0 ]];
      then
-        if [ $toint -gt 150 ]   
+        if [ $toint -gt 140 ]   
         then
             lockmodecounter=0
             lockmode=1
+            echo "Going into basic high performance mode"
+            bash basichp-mode.sh
+            execmode=2
+            lock=1
+            echo "Waiting for pods to be re-deployed ..."
+            sleep 25
+        elif [ $lockmode-ne 10 ]
+        then
+            lockmode=10
+            lockmodecounter=0
             echo "Going into basic high performance mode"
             bash basichp-mode.sh
             execmode=2
@@ -101,10 +121,20 @@ do
         fi
     elif [[ $toint -gt 100 && !($execmode -eq 3) && $execmode -eq 2 && $lock -eq 0 ]] || [[ $execmode -eq 2 && $totcpucomp -gt 70000 && !($execmode -eq 3) && $lock -eq 0 ]];
     then   
-        if [ $toint -gt 150 ]
+        if [ $toint -gt 140 ]
         then
             lockmodecounter=0
             lockmode=2
+            echo "Going into basic low power mode"
+            bash basiclp-mode.sh
+            execmode=3
+            lock=1
+            echo "Waiting for pods to be re-deployed ..."
+            sleep 25
+        elif [ $lockmode-ne 10 ]
+        then
+            lockmode=10
+            lockmodecounter=0
             echo "Going into basic low power mode"
             bash basiclp-mode.sh
             execmode=3
