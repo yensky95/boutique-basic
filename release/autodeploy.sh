@@ -59,7 +59,7 @@ do
     echo "CPU power consumption: $totcpup W"
     echo "Lock var: $lockvar, Lock: $lock, Lockmode: $lockmode, Lock mode counter: $lockmodecounter"
 
-    if [[ $toint -gt 130 && $execmode -eq 0 && $lock -eq 0 ]] || [[ $execmode -eq 0 && $totcpucomp -gt 90000 && $lock -eq 0 ]];
+    if [[ $toint -gt 140 && $execmode -eq 0 && $lock -eq 0 ]] || [[ $execmode -eq 0 && $totcpucomp -gt 90000 && $lock -eq 0 ]];
     then
         if [ $toint -gt 180 ]
         then
@@ -89,7 +89,7 @@ do
             echo "Waiting for pods to be re-deployed ..."
             sleep 30
         fi
-    elif [[ $toint -gt 130 && $execmode -eq 1 && $lock -eq 0 ]] || [[ $execmode -eq 1 && $totcpucomp -gt 85000 && $lock -eq 0 ]];
+    elif [[ $toint -gt 140 && $execmode -eq 1 && $lock -eq 0 ]] || [[ $execmode -eq 1 && $totcpucomp -gt 85000 && $lock -eq 0 ]];
      then
         if [ $toint -gt 180 ]   
         then
@@ -119,7 +119,7 @@ do
             echo "Waiting for pods to be re-deployed ..."
             sleep 35
         fi
-    elif [[ $toint -gt 130 && !($execmode -eq 3) && $execmode -eq 2 && $lock -eq 0 ]] || [[ $execmode -eq 2 && $totcpucomp -gt 75000 && !($execmode -eq 3) && $lock -eq 0 ]];
+    elif [[ $toint -gt 140 && !($execmode -eq 3) && $execmode -eq 2 && $lock -eq 0 ]] || [[ $execmode -eq 2 && $totcpucomp -gt 75000 && !($execmode -eq 3) && $lock -eq 0 ]];
     then   
         if [ $toint -gt 180 ]
         then
@@ -151,7 +151,7 @@ do
         fi
     fi
     
-    if [[ $toint -lt 60 && $execmode -eq 3 && $lock -eq 0 ]] || [[ $execmode -eq 3 && $totcpucomp -lt 32000 && $lock -eq 0 ]];
+    if [[ $toint -lt 60 && $execmode -eq 3 && $lock -eq 0 ]] || [[ $execmode -eq 3 && $totcpucomp -lt 40000 && $lock -eq 0 ]];
     then   
         if [ $lockmode -ne 2 ]
         then
@@ -170,7 +170,7 @@ do
             lockmodecounter=lockmodecounter+1
             echo "Updating lockmodecounter: $lockmodecounter"
         fi
-    elif [[ $toint -lt 70 && $execmode -eq 2 && $lock -eq 0  ]] || [[ $execmode -eq 2 && $totcpucomp -lt 35000 && $lock -eq 0 ]];
+    elif [[ $toint -lt 70 && $execmode -eq 2 && $lock -eq 0  ]] || [[ $execmode -eq 2 && $totcpucomp -lt 50000 && $lock -eq 0 ]];
     then   
         if [ $lockmode -ne 1 ]
         then
@@ -189,7 +189,7 @@ do
             lockmodecounter=lockmodecounter+1
             echo "Updating lockmodecounter: $lockmodecounter"
         fi
-    elif [[ $toint -lt 80 && $execmode -eq 1 && $lock -eq 0  ]] || [[ $execmode -eq 1 && $totcpucomp -lt 50000 && $lock -eq 0 ]];
+    elif [[ $toint -lt 80 && $execmode -eq 1 && $lock -eq 0  ]] || [[ $execmode -eq 1 && $totcpucomp -lt 60000 && $lock -eq 0 ]];
     then   
         if [ $lockmode -ne 0 ]
         then
