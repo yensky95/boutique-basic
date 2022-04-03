@@ -170,7 +170,7 @@ do
             lockmodecounter=lockmodecounter+1
             echo "Updating lockmodecounter: $lockmodecounter"
         fi
-    elif [[ $toint -lt 70 && $execmode -eq 2 && $lock -eq 0  ]] || [[ $execmode -eq 2 && $totcpucomp -lt 50000 && $lock -eq 0 ]];
+    elif [[ $toint -lt 70 && $execmode -eq 2 && $lock -eq 0  ]] || [[ $execmode -eq 2 && $totcpucomp -lt 48000 && $lock -eq 0 ]];
     then   
         if [ $lockmode -ne 1 ]
         then
@@ -189,7 +189,7 @@ do
             lockmodecounter=lockmodecounter+1
             echo "Updating lockmodecounter: $lockmodecounter"
         fi
-    elif [[ $toint -lt 80 && $execmode -eq 1 && $lock -eq 0  ]] || [[ $execmode -eq 1 && $totcpucomp -lt 60000 && $lock -eq 0 ]];
+    elif [[ $toint -lt 80 && $execmode -eq 1 && $lock -eq 0  ]] || [[ $execmode -eq 1 && $totcpucomp -lt 58000 && $lock -eq 0 ]];
     then   
         if [ $lockmode -ne 0 ]
         then
