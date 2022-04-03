@@ -59,9 +59,9 @@ do
     echo "CPU power consumption: $totcpup W"
     echo "Lock var: $lockvar, Lock: $lock, Lockmode: $lockmode, Lock mode counter: $lockmodecounter"
 
-    if [[ $toint -gt 100 && $execmode -eq 0 && $lock -eq 0 ]] || [[ $execmode -eq 0 && $totcpucomp -gt 70000 && $lock -eq 0 ]];
+    if [[ $toint -gt 140 && $execmode -eq 0 && $lock -eq 0 ]] || [[ $execmode -eq 0 && $totcpucomp -gt 70000 && $lock -eq 0 ]];
     then
-        if [ $toint -gt 140 ]
+        if [ $toint -gt 180 ]
         then
             lockmodecounter=0
             lockmode=0
@@ -89,9 +89,9 @@ do
             echo "Waiting for pods to be re-deployed ..."
             sleep 25
         fi
-    elif [[ $toint -gt 100 && $execmode -eq 1 && $lock -eq 0 ]] || [[ $execmode -eq 1 && $totcpucomp -gt 70000 && $lock -eq 0 ]];
+    elif [[ $toint -gt 140 && $execmode -eq 1 && $lock -eq 0 ]] || [[ $execmode -eq 1 && $totcpucomp -gt 70000 && $lock -eq 0 ]];
      then
-        if [ $toint -gt 140 ]   
+        if [ $toint -gt 180 ]   
         then
             lockmodecounter=0
             lockmode=1
@@ -119,9 +119,9 @@ do
             echo "Waiting for pods to be re-deployed ..."
             sleep 25
         fi
-    elif [[ $toint -gt 100 && !($execmode -eq 3) && $execmode -eq 2 && $lock -eq 0 ]] || [[ $execmode -eq 2 && $totcpucomp -gt 70000 && !($execmode -eq 3) && $lock -eq 0 ]];
+    elif [[ $toint -gt 140 && !($execmode -eq 3) && $execmode -eq 2 && $lock -eq 0 ]] || [[ $execmode -eq 2 && $totcpucomp -gt 70000 && !($execmode -eq 3) && $lock -eq 0 ]];
     then   
-        if [ $toint -gt 140 ]
+        if [ $toint -gt 180 ]
         then
             lockmodecounter=0
             lockmode=2
