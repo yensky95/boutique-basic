@@ -31,7 +31,7 @@ do
     toint=$(($valuefd+0))
 
     #Throughput calculation
-    content=$( curl -g 'http://localhost:9090/api/v1/query?query=sum(rate(istio_request_duration_milliseconds_count{app="frontend"}[1m30s]))' )
+    content=$( curl -g 'http://localhost:9090/api/v1/query?query=sum(rate(istio_request_duration_milliseconds_count{app="frontend"}[1m]))' )
     valuet=$( jq '.data.result[].value[1]' <<< "${content}" )
     valueta=$(echo $valuet | cut -c 2-)
     valuetfd=$(echo $valueta | awk '{printf "%d", $1}')
@@ -59,7 +59,7 @@ do
     echo "CPU power consumption: $totcpup W"
     echo "Lock var: $lockvar, Lock: $lock, Lockmode: $lockmode, Lock mode counter: $lockmodecounter"
 
-    if [[ $toint -gt 120 && $execmode -eq 0 && $lock -eq 0 ]] || [[ $execmode -eq 0 && $totcpucomp -gt 80000 && $lock -eq 0 ]];
+    if [[ $toint -gt 120 && $execmode -eq 0 && $lock -eq 0 ]] || [[ $execmode -eq 0 && $totcpucomp -gt 90000 && $lock -eq 0 ]];
     then
         if [ $toint -gt 180 ]
         then
@@ -89,7 +89,7 @@ do
             echo "Waiting for pods to be re-deployed ..."
             sleep 25
         fi
-    elif [[ $toint -gt 120 && $execmode -eq 1 && $lock -eq 0 ]] || [[ $execmode -eq 1 && $totcpucomp -gt 80000 && $lock -eq 0 ]];
+    elif [[ $toint -gt 120 && $execmode -eq 1 && $lock -eq 0 ]] || [[ $execmode -eq 1 && $totcpucomp -gt 85000 && $lock -eq 0 ]];
      then
         if [ $toint -gt 180 ]   
         then
@@ -119,7 +119,7 @@ do
             echo "Waiting for pods to be re-deployed ..."
             sleep 25
         fi
-    elif [[ $toint -gt 120 && !($execmode -eq 3) && $execmode -eq 2 && $lock -eq 0 ]] || [[ $execmode -eq 2 && $totcpucomp -gt 80000 && !($execmode -eq 3) && $lock -eq 0 ]];
+    elif [[ $toint -gt 120 && !($execmode -eq 3) && $execmode -eq 2 && $lock -eq 0 ]] || [[ $execmode -eq 2 && $totcpucomp -gt 75000 && !($execmode -eq 3) && $lock -eq 0 ]];
     then   
         if [ $toint -gt 180 ]
         then
