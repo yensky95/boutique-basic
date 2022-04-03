@@ -24,14 +24,14 @@ do
 
     echo "-----Cycle $i-----" >> datatop.txt
     #Response Time calculation
-    content=$( curl -g 'http://localhost:9090/api/v1/query?query=rate(istio_request_duration_milliseconds_sum{app="frontend",source_app="loadgenerator",response_code="200"}[1m30s])/rate(istio_request_duration_milliseconds_count{app="frontend",source_app="loadgenerator",response_code="200"}[1m30s])' )
+    content=$( curl -g 'http://localhost:9090/api/v1/query?query=rate(istio_request_duration_milliseconds_sum{app="frontend",source_app="loadgenerator",response_code="200"}[30s])/rate(istio_request_duration_milliseconds_count{app="frontend",source_app="loadgenerator",response_code="200"}[30s])' )
     value=$( jq '.data.result[].value[1]' <<< "${content}" )
     valuea=$(echo $value | cut -c 2-)
     valuefd=$(echo $valuea | awk '{printf "%d", $1}')
     toint=$(($valuefd+0))
 
     #Throughput calculation
-    content=$( curl -g 'http://localhost:9090/api/v1/query?query=sum(rate(istio_request_duration_milliseconds_count{app="frontend"}[1m]))' )
+    content=$( curl -g 'http://localhost:9090/api/v1/query?query=sum(rate(istio_request_duration_milliseconds_count{app="frontend"}[30s]))' )
     valuet=$( jq '.data.result[].value[1]' <<< "${content}" )
     valueta=$(echo $valuet | cut -c 2-)
     valuetfd=$(echo $valueta | awk '{printf "%d", $1}')
@@ -70,7 +70,7 @@ do
             execmode=1
             lock=1
             echo "Waiting for pods to be re-deployed ..."
-            sleep 25
+            sleep 30
         elif [ $lockmode -ne 10 ]
         then
             lockmode=10
@@ -80,14 +80,14 @@ do
             execmode=1
             lock=1
             echo "Waiting for pods to be re-deployed ..."
-            sleep 25
+            sleep 30
         else
             echo "Going into normal low power mode"
             bash normal-mode-lp.sh
             execmode=1
             lock=1
             echo "Waiting for pods to be re-deployed ..."
-            sleep 25
+            sleep 30
         fi
     elif [[ $toint -gt 130 && $execmode -eq 1 && $lock -eq 0 ]] || [[ $execmode -eq 1 && $totcpucomp -gt 85000 && $lock -eq 0 ]];
      then
@@ -100,7 +100,7 @@ do
             execmode=2
             lock=1
             echo "Waiting for pods to be re-deployed ..."
-            sleep 25
+            sleep 35
         elif [ $lockmode -ne 10 ]
         then
             lockmode=10
@@ -110,14 +110,14 @@ do
             execmode=2
             lock=1
             echo "Waiting for pods to be re-deployed ..."
-            sleep 25
+            sleep 35
         else
             echo "Going into basic high performance mode"
             bash basichp-mode.sh
             execmode=2
             lock=1
             echo "Waiting for pods to be re-deployed ..."
-            sleep 25
+            sleep 35
         fi
     elif [[ $toint -gt 130 && !($execmode -eq 3) && $execmode -eq 2 && $lock -eq 0 ]] || [[ $execmode -eq 2 && $totcpucomp -gt 75000 && !($execmode -eq 3) && $lock -eq 0 ]];
     then   
@@ -130,7 +130,7 @@ do
             execmode=3
             lock=1
             echo "Waiting for pods to be re-deployed ..."
-            sleep 25
+            sleep 30
         elif [ $lockmode -ne 10 ]
         then
             lockmode=10
@@ -140,14 +140,14 @@ do
             execmode=3
             lock=1
             echo "Waiting for pods to be re-deployed ..."
-            sleep 25
+            sleep 30
         else
             echo "Going into basic low power mode"
             bash basiclp-mode.sh
             execmode=3
             lock=1
             echo "Waiting for pods to be re-deployed ..."
-            sleep 25
+            sleep 30
         fi
     fi
     
@@ -160,7 +160,7 @@ do
             execmode=2
             lock=1
             echo "Waiting for pods to be re-deployed ..."
-            sleep 25
+            sleep 30
         elif [ $lockmodecounter -gt 0 ]
         then
             lockmodecounter=0
@@ -179,7 +179,7 @@ do
             execmode=1
             lock=1
             echo "Waiting for pods to be re-deployed ..."
-            sleep 25
+            sleep 40
         elif [ $lockmodecounter -gt 0 ]
         then
             lockmodecounter=0
@@ -198,7 +198,7 @@ do
             execmode=0
             lock=1
             echo "Waiting for pods to be re-deployed ..."
-            sleep 25
+            sleep 30
         elif [ $lockmodecounter -gt 0 ]
         then
             lockmodecounter=0
