@@ -3,6 +3,7 @@
 #prometheus deployment running on http://localhost:9090 and being inside /boutique-basic/release/ folder 
 
 echo "Deploying normal mode ..."
+kubectl apply -f istio-manifests.yaml
 bash normal-mode-hp.sh
 echo "------------------"
 sleep 15
