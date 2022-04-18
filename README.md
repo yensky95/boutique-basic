@@ -7,3 +7,5 @@ Four different variants are available:
 - Basic Low Power
 
 Those variants can be deployed on a kubernetes cluster using the respective shell scripts contained in the release folder. 
+
+Loadgenerator10/50/100 generated a respective load of users into the application deployed. 
