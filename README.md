@@ -37,6 +37,8 @@ Kubernetes setup after cluster is created:
   - export PATH=$PWD/bin:$PATH
   - istioctl install --set profile=demo -y
   - kubectl label namespace default istio-injection=enabled
+  - kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.13/samples/addons/prometheus.yaml
+  - kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.13/samples/addons/grafana.yaml
 - go back into root folder with cd ..
 - open a second terminal (Google Cloud Shell) with the + button
 - in the new terminal execute 'istioctl dashboard prometheus'
