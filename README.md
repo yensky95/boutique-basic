@@ -119,3 +119,8 @@ spec:
             memory: 512Mi
 
 
+Transfer a file from VM to Cloud Storage bucket:
+
+- open the Google Cloud Shell
+- gsutil cp file_name.xxx gs://bucket_name
+- go in the Google Cloud Storage bucket and download

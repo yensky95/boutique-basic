@@ -6,7 +6,7 @@ echo "Deploying normal mode ..."
 kubectl apply -f istio-manifests.yaml
 bash normal-mode-hp.sh
 echo "------------------"
-sleep 15
+sleep 35
 
 
 #execmode: 0 -> normal high performance, 1 -> normal low power , 2 -> basic high performance, 3 -> basic low power
