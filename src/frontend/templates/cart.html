@@ -225,5 +225,9 @@
 
     </main>
 
+    {{ if $.recommendations}}
+        {{ template "recommendations" $.recommendations }}
+    {{ end }}
+
     {{ template "footer" . }}
     {{ end }}

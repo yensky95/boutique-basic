@@ -1,4 +1,4 @@
-module github.com/yensky95/boutique-basic/src/frontend
+module github.com/GoogleCloudPlatform/microservices-demo/src/frontend
 
 go 1.17
 

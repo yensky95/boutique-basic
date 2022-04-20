@@ -148,7 +148,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: yensky/recommendationservicelp:latest
+        image: yensky/recommendationservicelowpower:latest
         ports:
         - containerPort: 8080
         readinessProbe:
@@ -348,7 +348,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: yensky/productcatalogservicelowp:latest
+        image: yensky/productcatservlp:latest
         ports:
         - containerPort: 3550
         env:

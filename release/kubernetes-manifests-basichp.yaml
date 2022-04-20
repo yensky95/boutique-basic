@@ -149,7 +149,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: server
-          image: yensky/frontendbasic:latest
+          image: yensky/feb:latest
           ports:
           - containerPort: 8080
           readinessProbe:

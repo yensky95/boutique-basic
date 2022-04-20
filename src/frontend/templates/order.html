@@ -70,6 +70,10 @@
             </div>
         </section>
 
+        {{ if $.recommendations }}
+            {{ template "recommendations" $.recommendations }}
+        {{ end }}
+
     </main>
 
     {{ template "footer" . }}
