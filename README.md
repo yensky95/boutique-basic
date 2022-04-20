@@ -48,9 +48,7 @@ Kubernetes setup after cluster is created:
   - git clone https://github.com/yensky95/boutique-basic.git
 - cd boutique-basic/release
 - launch one of the three loadgenerator variants with:
-  - kubectl apply -f loadgenerator10.yaml<br>
-                     loadgenerator50.yaml<br>
-                     loadgenerator100.yaml
+  - kubectl apply -f loadgenerator10/50/100.yaml<br>
 - launch the autodeploy decision system:
   - bash autodeploy.sh
 
@@ -67,57 +65,58 @@ YAML files image change:
 - open the manifest file 
 - search for the desired microservice for which we desire to change image
 - e.g. below<br>
-apiVersion: apps/v1<br>
-kind: Deployment<br>
-metadata:<br>
-  name: loadgenerator<br>
-spec:<br>
-  selector:<br>
-    matchLabels:<br>
-      app: loadgenerator<br>
-  replicas: 1<br>
-  template:<br>
-    metadata:<br>
-      labels:<br>
-        app: loadgenerator<br>
-      annotations:<br>
-        sidecar.istio.io/rewriteAppHTTPProbers: "true"<br>
-    spec:<br>
-      serviceAccountName: default<br>
-      terminationGracePeriodSeconds: 5<br>
-      restartPolicy: Always<br>
-      initContainers:<br>
-      - command:<br>
-        - /bin/sh<br>
-        - -exc<br>
-        - |<br>
-          echo "Init container pinging frontend: ${FRONTEND_ADDR}..."<br>
-          STATUSCODE=$(wget --server-response http://${FRONTEND_ADDR} 2>&1 | awk '/^  HTTP/{print $2}')<br>
-          if test $STATUSCODE -ne 200; then<br>
-              echo "Error: Could not reach frontend - Status code: ${STATUSCODE}"<br>
-              exit 1<br>
-          fi<br>
-        name: frontend-check<br>
-        image: busybox:latest<br>
-        env:<br>
-        - name: FRONTEND_ADDR<br>
-          value: "frontend:80"<br>
-      containers:<br>
-      - name: main<br>
-        image: yensky/loadgeneratortenusers:latest  <------ HERE (always put dockerhub_username/name:version_tag)<br>
-        env:<br>
-        - name: FRONTEND_ADDR<br>
-          value: "frontend:80"<br>
-        - name: USERS<br>
-          value: "10"<br>
-        resources:<br>
-          requests:<br>
-            cpu: 300m<br>
-            memory: 256Mi<br>
-          limits:<br>
-            cpu: 500m<br>
-            memory: 512Mi<br>
-
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loadgenerator
+spec:
+  selector:
+    matchLabels:
+      app: loadgenerator
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: loadgenerator
+      annotations:
+        sidecar.istio.io/rewriteAppHTTPProbers: "true"
+    spec:
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 5
+      restartPolicy: Always
+      initContainers:
+      - command:
+        - /bin/sh
+        - -exc
+        - |
+          echo "Init container pinging frontend: ${FRONTEND_ADDR}..."
+          STATUSCODE=$(wget --server-response http://${FRONTEND_ADDR} 2>&1 | awk '/^  HTTP/{print $2}')
+          if test $STATUSCODE -ne 200; then
+              echo "Error: Could not reach frontend - Status code: ${STATUSCODE}"
+              exit 1
+          fi
+        name: frontend-check
+        image: busybox:latest
+        env:
+        - name: FRONTEND_ADDR
+          value: "frontend:80"
+      containers:
+      - name: main
+        image: yensky/loadgeneratortenusers:latest  <------ HERE (always put dockerhub_username/name:version_tag)
+        env:
+        - name: FRONTEND_ADDR
+          value: "frontend:80"
+        - name: USERS
+          value: "10"
+        resources:
+          requests:
+            cpu: 300m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+```
 
 Transfer a file from VM to Cloud Storage bucket:
 
